@@ -1,5 +1,4 @@
-# Chez Homer 👨🏻‍🍳
-# Restaurant Ordering App
+# Restaurant Ordering App - Chez Homer 👨🏻‍🍳
  PFI - CLG 0223
  
  Overview
