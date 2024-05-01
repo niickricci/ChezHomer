@@ -1,5 +1,5 @@
 # Chez Homer 👨🏻‍🍳
- Restaurant Ordering App made with React-Native, Node.js & Expo.
+ Restaurant Ordering mobile app made with React-Native, Node.js & Expo.
  
 # Overview
  This React-Native project is the final integration production for the course 420-KBC at Collège Lionel-Groulx. It is an individual 
