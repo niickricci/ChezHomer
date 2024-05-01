@@ -2,7 +2,7 @@ import { Pressable, ScrollView, SectionList, StyleSheet } from "react-native";
 import { Text, View } from "react-native";
 import { FlatList } from "react-native";
 import { useState, useEffect, useRef } from "react";
-
+import { AntDesign } from "@expo/vector-icons";
 import { BarreOutils, Bouton } from "./BarreOutils";
 import ItemMenu from "./ItemMenu";
 import Tuilerie from "./Tuilerie";
@@ -14,6 +14,7 @@ import {
   nbItemPanier,
 } from "../panier";
 import stylesCommuns from "../styles";
+import Toast from "react-native-toast-message";
 
 export default function PanierScreen({ navigation }) {
   const [itemSélectionné, setItemSélectionné] = useState(null);
@@ -23,18 +24,82 @@ export default function PanierScreen({ navigation }) {
 
   useEffect(() => {
     setPanier(obtenirPanier());
-  }, []);
+  }, [nbItemPanier()]);
 
   useEffect(() => {
     setFacture(panierJSON.reduce((acc, item) => acc + item.prix, 0));
   }, [panierJSON]);
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AntDesign
+            name="left"
+            size={25}
+            color="cornflowerblue"
+            onPress={() => navigation.goBack()}
+          ></AntDesign>
+        );
+      },
+    });
+  }, [navigation]);
   function supprimerItem() {
-    console.log("Supprimer item");
+    if (itemSélectionné != null) {
+      console.log("Supprimer item: ", itemSélectionné.idItem);
+      supprimerItemPanier(itemSélectionné);
+      setPanier(obtenirPanier());
+    } else {
+      console.log("Aucun item sélectionné");
+    }
   }
 
   function commanderItems() {
-    console.log("Commander item");
+    if (panierJSON.length > 0) {
+      // export function placerCommandeJSON(commandeItems) {
+      //   let commandeInfo = {
+      //     nom: Nom,
+      //     prénom: Prénom,
+      //     items: commandeItems,
+      //   };
+      //   function créerCommande(commande) {
+      //     const id = `${commandeId}`;
+      //     commandeId += 1;
+      //     const nouvelleCommande = {
+      //         id: id,
+      //         nom: commande.nom,
+      //         prénom: commande.prénom,
+      //         // mobile: commande.mobile,
+      //         // codePostal: commande.codePostal,
+      //         statut: "En attente",
+      //         items: commande.items,
+      //     };
+      //     commandes.push(nouvelleCommande);
+      //     return { erreur: 0, msg: "créée" };
+      // };
+      let commande = panierJSON.map((item) => {
+        return { idItem: item.idItem };
+      });
+      placerCommandeJSON(commande)
+        .then((res) => {
+          initPanier();
+          setPanier(obtenirPanier());
+          Toast.show({
+            type: "success",
+            text1: "Commande réussie ✅",
+            text2: "Votre commande a été placée avec succès",
+          });
+          setStatutCommande("Commande réussie!");
+        })
+        .catch((err) => {
+          Toast.show({
+            type: "error",
+            text1: "Commande échouée ❌",
+            text2: "Erreur lors de la commande...",
+          });
+          setStatutCommande("Erreur lors de la commande...");
+        });
+    }
   }
 
   return (
@@ -50,28 +115,57 @@ export default function PanierScreen({ navigation }) {
                   prix={item.prix}
                   image={item.image}
                   onPress_cb={() => {
-                    setItemSélectionné(item);
+                    if (itemSélectionné != item) {
+                      setItemSélectionné(item);
+                    } else {
+                      setItemSélectionné(null);
+                    }
                   }}
-                  sélectionné={itemSélectionné === item}
+                  sélectionné={itemSélectionné == item}
                 />
               );
             })}
           </Tuilerie>
         </ScrollView>
       </View>
-      <View style={styles.sectionBas}></View>
-      <Facture soustotal={facture} />
+      <View style={styles.sectionBas}>
+        <View>
+          <Facture soustotal={facture} />
+        </View>
+      </View>
+      <BarreOutils style={styles.facture}>
+        <Bouton
+          texte="Supprimer"
+          onPress_cb={() => {
+            supprimerItem();
+          }}
+        />
+        <Bouton
+          texte="Commander"
+          onPress_cb={() => {
+            commanderItems();
+          }}
+        />
+      </BarreOutils>
     </View>
   );
 }
 
 function Facture({ soustotal }) {
   return (
-    <View style={stylesCommuns.app}>
-      <Text>Sous-Total: {soustotal}$</Text>
-      <Text>TVQ: {(soustotal * 0.09975).toFixed(2)}$</Text>
-      <Text>TPS: {(soustotal * 0.05).toFixed(2)}$</Text>
-      <Text>Total: {(soustotal * 1.14975).toFixed(2)}$</Text>
+    <View>
+      <Text style={styles.textFacture}>
+        Sous-Total: {soustotal.toFixed(2)}$
+      </Text>
+      <Text style={styles.textFacture}>
+        TVQ: {(soustotal * 0.09975).toFixed(2)}$
+      </Text>
+      <Text style={styles.textFacture}>
+        TPS: {(soustotal * 0.05).toFixed(2)}$
+      </Text>
+      <Text style={[styles.textFacture, { marginBottom: 40 }]}>
+        Total: {(soustotal * 1.14975).toFixed(2)}$
+      </Text>
     </View>
   );
 }
@@ -84,7 +178,14 @@ const styles = StyleSheet.create({
   },
   sectionBas: {
     flex: 1,
-    alignItems: "center",
+    borderTop: "solid",
+    borderColor: "rgba(0, 0, 0, 0.2)",
+    borderWidth: 1,
+    alignItems: "flex-end",
     justifyContent: "center",
+  },
+  textFacture: {
+    fontSize: 20,
+    fontWeight: "500",
   },
 });

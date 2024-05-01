@@ -28,7 +28,7 @@ export default function ArdoiseScreen({ navigation }) {
 
   useEffect(() => {
     setNbItemsPanier(nbItemPanier());
-  }, [nbItemsPanier]);
+  }, [nbItemPanier()]);
 
   useEffect(() => {
     obtenirMenuJSON()
@@ -70,7 +70,7 @@ export default function ArdoiseScreen({ navigation }) {
             color="cornflowerblue"
             onPress={() => navigation.navigate("Panier")}
           >
-            <Text>{nbItemsPanier}</Text>
+            <Text>{nbItemPanier()}</Text>
           </AntDesign>
         );
       },

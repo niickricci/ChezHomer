@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   },
   bouton: {
     backgroundColor: "#111F30",
-    padding: 8,
-    marginBottom: 10,
+    padding: 10,
+    marginBottom: 20,
     borderRadius: 10,
   },
   étiquetteBouton: {
