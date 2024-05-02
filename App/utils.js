@@ -53,8 +53,8 @@ function supprimerRessourceJSON(ressource) {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export function obtenirAuthenJSON(username, password) {
-  //Username = username;
-  //Password = password;
+  Username = username;
+  Password = password;
   return obtenirRessourceJSON("authentification").then((res) => {
     console.log("login succès: %s", res);
     Nom = res.nom;

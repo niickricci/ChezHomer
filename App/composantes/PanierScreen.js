@@ -49,6 +49,11 @@ export default function PanierScreen({ navigation }) {
       console.log("Supprimer item: ", itemSélectionné.idItem);
       supprimerItemPanier(itemSélectionné);
       setPanier(obtenirPanier());
+      Toast.show({
+        type: "success",
+        text1: "Item supprimé ❌",
+        text2: itemSélectionné.nomItem + " a été retiré du panier avec succès",
+      });
     } else {
       console.log("Aucun item sélectionné");
     }
@@ -56,27 +61,6 @@ export default function PanierScreen({ navigation }) {
 
   function commanderItems() {
     if (panierJSON.length > 0) {
-      // export function placerCommandeJSON(commandeItems) {
-      //   let commandeInfo = {
-      //     nom: Nom,
-      //     prénom: Prénom,
-      //     items: commandeItems,
-      //   };
-      //   function créerCommande(commande) {
-      //     const id = `${commandeId}`;
-      //     commandeId += 1;
-      //     const nouvelleCommande = {
-      //         id: id,
-      //         nom: commande.nom,
-      //         prénom: commande.prénom,
-      //         // mobile: commande.mobile,
-      //         // codePostal: commande.codePostal,
-      //         statut: "En attente",
-      //         items: commande.items,
-      //     };
-      //     commandes.push(nouvelleCommande);
-      //     return { erreur: 0, msg: "créée" };
-      // };
       let commande = panierJSON.map((item) => {
         return {
           idItem: item.idItem,
@@ -110,28 +94,32 @@ export default function PanierScreen({ navigation }) {
   return (
     <View style={stylesCommuns.app}>
       <View style={styles.sectionHaut}>
-        <ScrollView>
-          <Tuilerie>
-            {panierJSON.map((item) => {
-              return (
-                <ItemMenu
-                  key={item.idItem}
-                  titre={item.nomItem}
-                  prix={item.prix}
-                  image={item.image}
-                  onPress_cb={() => {
-                    if (itemSélectionné != item) {
-                      setItemSélectionné(item);
-                    } else {
-                      setItemSélectionné(null);
-                    }
-                  }}
-                  sélectionné={itemSélectionné == item}
-                />
-              );
-            })}
-          </Tuilerie>
-        </ScrollView>
+        {panierJSON.length === 0 ? (
+          <Text style={styles.textFacture}>Votre panier est vide...</Text>
+        ) : (
+          <ScrollView>
+            <Tuilerie>
+              {panierJSON.map((item) => {
+                return (
+                  <ItemMenu
+                    key={item.idItem}
+                    titre={item.nomItem}
+                    prix={item.prix}
+                    image={item.image}
+                    onPress_cb={() => {
+                      if (itemSélectionné != item) {
+                        setItemSélectionné(item);
+                      } else {
+                        setItemSélectionné(null);
+                      }
+                    }}
+                    sélectionné={itemSélectionné == item}
+                  />
+                );
+              })}
+            </Tuilerie>
+          </ScrollView>
+        )}
       </View>
       <View style={styles.sectionBas}>
         <View>

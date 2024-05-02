@@ -20,22 +20,6 @@ export default function RestoInfoScreen({ navigation, route }) {
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
   const [position, setPosition] = useState(null);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => {
-        return (
-          <AntDesign
-            name="left"
-            size={25}
-            color="#111F30"
-            onPress={() => navigation.goBack()}
-          ></AntDesign>
-        );
-      },
-    });
-  }, [navigation]);
-
   useEffect(() => {
     Location.requestForegroundPermissionsAsync() // Demande la permission d'accéder à la position de l'appareil
       .then(({ status }) => {
@@ -52,6 +36,20 @@ export default function RestoInfoScreen({ navigation, route }) {
         setLatitude(position.coords.latitude); // Mettre à jour la latitude
       });
   }, []);
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AntDesign
+            name="left"
+            size={25}
+            color="#111F30"
+            onPress={() => navigation.goBack()}
+          ></AntDesign>
+        );
+      },
+    });
+  }, [navigation]);
   return (
     <View style={stylesCommuns.app}>
       <View style={styles.sectionHaut}>
@@ -63,6 +61,10 @@ export default function RestoInfoScreen({ navigation, route }) {
           close."
         </Text>
         <Text style={styles.bienvenue}>140 Bd Curé-Labelle, Rosemère, QC</Text>
+        <View>
+          <Text style={styles.texteAuteur}>Nicolas Ricci</Text>
+          <Text style={styles.texteAuteur}>2024 ©</Text>
+        </View>
       </View>
       <View style={styles.sectionBas}>
         <MapView
@@ -134,6 +136,11 @@ const styles = StyleSheet.create({
   },
   texte: {
     fontSize: 16,
+    textAlign: "center",
+    fontWeight: "400",
+  },
+  texteAuteur: {
+    fontSize: 12,
     textAlign: "center",
     fontWeight: "400",
   },
