@@ -33,10 +33,33 @@ export default function CommandeScreen({ navigation }) {
       });
   }, []);
 
- 
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AntDesign
+            name="left"
+            size={25}
+            color="#111F30"
+            onPress={() => navigation.goBack()}
+          ></AntDesign>
+        );
+      },
+    });
+  }, [navigation]);
+
   function renderItem({ item, index }) {
     return (
-      <Pressable style={styles.item} onPress={() => navigation.navigate("CommandeInfo", {idCommande: item.id})}>
+      <Pressable
+        style={styles.item}
+        onPress={() =>
+          navigation.navigate("CommandeInfo", {
+            idCommande: item.id,
+            nomClient: item.nom,
+            prenomClient: item.prénom,
+          })
+        }
+      >
         <Text style={styles.itemDesc}>ID: {item.id}</Text>
         <Text style={styles.itemDesc}>
           {item.prénom} {item.nom}

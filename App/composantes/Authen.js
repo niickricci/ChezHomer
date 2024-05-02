@@ -13,7 +13,7 @@ import { useState, useEffect, useRef } from "react";
 import { BarreOutils, Bouton } from "./BarreOutils";
 
 import { obtenirAuthenJSON } from "../utils";
-
+import { AntDesign } from "@expo/vector-icons";
 import stylesCommuns from "../styles";
 
 export function AuthenScreen({ navigation }) {
@@ -76,6 +76,16 @@ export function SeConnecterScreen({ navigation }) {
   useEffect(() => {
     console.log("UseEffect SeConnecter");
     navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AntDesign
+            name="left"
+            size={25}
+            color="#111F30"
+            onPress={() => navigation.replace("Authen")}
+          ></AntDesign>
+        );
+      },
       headerRight: () => {
         return (
           <Pressable onPress={() => navigation.navigate("Aide")}>

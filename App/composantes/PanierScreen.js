@@ -27,7 +27,7 @@ export default function PanierScreen({ navigation }) {
   }, [nbItemPanier()]);
 
   useEffect(() => {
-    setFacture(panierJSON.reduce((acc, item) => acc + item.prix, 0)); 
+    setFacture(panierJSON.reduce((acc, item) => acc + item.prix, 0));
   }, [panierJSON]);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function PanierScreen({ navigation }) {
           <AntDesign
             name="left"
             size={25}
-            color="cornflowerblue"
+            color="#111F30"
             onPress={() => navigation.goBack()}
           ></AntDesign>
         );

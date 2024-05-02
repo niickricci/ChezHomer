@@ -5,10 +5,11 @@ import Tuilerie from "./Tuilerie";
 import { BarreOutils, Bouton } from "./BarreOutils";
 import { obtenirUneCommandeJSON } from "../utils";
 import stylesCommuns from "../styles";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function CommandeInfoScreen({ navigation, route }) {
   const [commandeInfo, setCommandeInfo] = useState([]);
-  const { idCommande } = route.params;
+  const { idCommande, nomClient, prenomClient } = route.params;
   const [facture, setFacture] = useState(0);
 
   useEffect(() => {
@@ -28,6 +29,21 @@ export default function CommandeInfoScreen({ navigation, route }) {
   useEffect(() => {
     setFacture(commandeInfo.reduce((acc, item) => acc + item.prix, 0));
   }, [commandeInfo]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AntDesign
+            name="left"
+            size={25}
+            color="#111F30"
+            onPress={() => navigation.goBack()}
+          ></AntDesign>
+        );
+      },
+    });
+  }, [navigation]);
 
   return (
     <View style={stylesCommuns.app}>

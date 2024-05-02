@@ -57,7 +57,7 @@ export default function ArdoiseScreen({ navigation }) {
           <AntDesign
             name="left"
             size={25}
-            color="cornflowerblue"
+            color="#111F30"
             onPress={() => navigation.goBack()}
           ></AntDesign>
         );
@@ -67,7 +67,7 @@ export default function ArdoiseScreen({ navigation }) {
           <AntDesign
             name="shoppingcart"
             size={25}
-            color="cornflowerblue"
+            color="#111F30"
             onPress={() => navigation.navigate("Panier")}
           >
             <Text>{nbItemPanier()}</Text>
@@ -187,6 +187,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   section: {
-    margin: 5,
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
   },
 });

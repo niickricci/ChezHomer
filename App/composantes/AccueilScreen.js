@@ -28,7 +28,7 @@ export default function AccueilScreen({ navigation, route }) {
           <AntDesign
             name="logout"
             size={25}
-            color="cornflowerblue"
+            color="#111F30"
             onPress={() => {
               logoutAlert();
             }}
@@ -40,7 +40,7 @@ export default function AccueilScreen({ navigation, route }) {
           <AntDesign
             name="shoppingcart"
             size={25}
-            color="cornflowerblue"
+            color="#111F30"
             onPress={() => navigation.navigate("Panier")}
           >
             <Text>{nbItemPanier()}</Text>
