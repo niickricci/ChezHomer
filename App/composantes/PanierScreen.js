@@ -27,7 +27,7 @@ export default function PanierScreen({ navigation }) {
   }, [nbItemPanier()]);
 
   useEffect(() => {
-    setFacture(panierJSON.reduce((acc, item) => acc + item.prix, 0));
+    setFacture(panierJSON.reduce((acc, item) => acc + item.prix, 0)); 
   }, [panierJSON]);
 
   useEffect(() => {
@@ -138,7 +138,7 @@ export default function PanierScreen({ navigation }) {
           <Facture soustotal={facture} />
         </View>
       </View>
-      <BarreOutils style={styles.facture}>
+      <BarreOutils>
         <Bouton
           texte="Supprimer"
           onPress_cb={() => {
