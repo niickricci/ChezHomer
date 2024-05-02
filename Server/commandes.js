@@ -76,13 +76,13 @@ créerCommande({
     {
       idItem: "2",
       nomItem: "Croissant",
-      image: menu.sandwich64base,
+      image: menu.croissant64base,
       prix: 2.5,
     },
     {
       idItem: "10",
       nomItem: "Salade du marché",
-      image: menu.sandwich64base,
+      image: menu.marketSalad64base,
       prix: 3.5,
     },
   ],
@@ -94,13 +94,13 @@ créerCommande({
     {
       idItem: "2",
       nomItem: "Croissant",
-      image: menu.sandwich64base,
+      image: menu.croissant64base,
       prix: 2.5,
     },
     {
       idItem: "10",
       nomItem: "Salade du marché",
-      image: menu.sandwich64base,
+      image: menu.marketSalad64base,
       prix: 3.5,
     },
   ],
@@ -112,13 +112,13 @@ créerCommande({
     {
       idItem: "2",
       nomItem: "Croissant",
-      image: menu.sandwich64base,
+      image: menu.croissant64base,
       prix: 2.5,
     },
     {
       idItem: "10",
       nomItem: "Salade du marché",
-      image: menu.sandwich64base,
+      image: menu.marketSalad64base,
       prix: 3.5,
     },
   ],
