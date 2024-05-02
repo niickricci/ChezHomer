@@ -15,7 +15,7 @@ export default function ItemMenu({
   return (
     <Pressable
       onPress={() => {
-        onPress_cb(), console.log("ItemMenu: ", titre);
+        ifonPress_cb(), console.log("ItemMenu: ", titre);
       }}
     >
       <View style={[styles.item, sélectionné ? styles.itemSélectionné : null]}>

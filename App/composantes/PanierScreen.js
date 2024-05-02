@@ -78,7 +78,12 @@ export default function PanierScreen({ navigation }) {
       //     return { erreur: 0, msg: "créée" };
       // };
       let commande = panierJSON.map((item) => {
-        return { idItem: item.idItem };
+        return {
+          idItem: item.idItem,
+          image: item.image,
+          nomItem: item.nomItem,
+          prix: item.prix,
+        };
       });
       placerCommandeJSON(commande)
         .then((res) => {
