@@ -4,13 +4,14 @@ import { FlatList } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import { obtenirCommandesJSON } from "../utils";
 import { AntDesign } from "@expo/vector-icons";
-
+import { obtenirI18n } from "../Locales/i18n";
 import stylesCommuns from "../styles";
 
 export default function CommandeScreen({ navigation }) {
   const [commandesJSON, setCommandesJSON] = useState([obtenirCommandesJSON()]);
   const [loading, setLoading] = useState(true);
   const [fadeAnim] = useState(new Animated.Value(0));
+  const i18n = obtenirI18n();
 
   useEffect(() => {
     obtenirCommandesJSON()

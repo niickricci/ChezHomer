@@ -6,6 +6,7 @@ import MapView from "react-native-maps";
 import { Marker, Circle, Callout } from "react-native-maps";
 import stylesCommuns from "../styles";
 import { AntDesign } from "@expo/vector-icons";
+import { obtenirI18n } from "../Locales/i18n";
 
 const RegionMontreal = {
   latitude: 45.57959635115827,
@@ -20,6 +21,8 @@ export default function RestoInfoScreen({ navigation, route }) {
   const [longitude, setLongitude] = useState();
   const [latitude, setLatitude] = useState();
   const [position, setPosition] = useState(null);
+  const i18n = obtenirI18n();
+
   useEffect(() => {
     Location.requestForegroundPermissionsAsync() // Demande la permission d'accéder à la position de l'appareil
       .then(({ status }) => {
@@ -53,7 +56,7 @@ export default function RestoInfoScreen({ navigation, route }) {
   return (
     <View style={stylesCommuns.app}>
       <View style={styles.sectionHaut}>
-        <Text style={styles.bienvenue}>Bienvenue chez Homer 👨🏻‍🍳</Text>
+        <Text style={styles.bienvenue}>Chez Homer 👨🏻‍🍳</Text>
         <Text
           style={[styles.texte, { fontStyle: "italic", fontWeight: "500" }]}
         >

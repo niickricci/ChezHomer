@@ -5,6 +5,7 @@ import {
   Animated,
 } from "react-native";
 import Toast from "react-native-toast-message";
+import {obtenirI18n} from "../Locales/i18n";
 
 import { Text, View } from "react-native";
 import { useState, useEffect } from "react";
@@ -25,6 +26,7 @@ export default function ArdoiseScreen({ navigation }) {
   const [nbItemsPanier, setNbItemsPanier] = useState(0);
   const [loading, setLoading] = useState(true);
   const [fadeAnim] = useState(new Animated.Value(0));
+  const i18n = obtenirI18n();
 
   useEffect(() => {
     setNbItemsPanier(nbItemPanier());
@@ -84,7 +86,7 @@ export default function ArdoiseScreen({ navigation }) {
     Toast.show({
       type: "success",
       position: "top",
-      text1: "Ajout au panier 🛒",
+      text1: i18n.t("addToCartToast_succ"),
       text2: Selection.nomItem,
       visibilityTime: 3000,
     });
@@ -159,7 +161,7 @@ export default function ArdoiseScreen({ navigation }) {
       )}
       <BarreOutils>
         <Bouton
-          texte="Ajouter au panier"
+          texte={i18n.t("add_to_cart")}
           onPress_cb={() => {
             if (Selection != null) {
               choisirItem(Selection);

@@ -6,11 +6,13 @@ import { BarreOutils, Bouton } from "./BarreOutils";
 import { obtenirUneCommandeJSON } from "../utils";
 import stylesCommuns from "../styles";
 import { AntDesign } from "@expo/vector-icons";
+import { obtenirI18n } from "../Locales/i18n";
 
 export default function CommandeInfoScreen({ navigation, route }) {
   const [commandeInfo, setCommandeInfo] = useState([]);
   const { idCommande, nomClient, prenomClient } = route.params;
   const [facture, setFacture] = useState(0);
+  const i18n = obtenirI18n();
 
   useEffect(() => {
     obtenirUneCommandeJSON(idCommande)
@@ -69,13 +71,13 @@ export default function CommandeInfoScreen({ navigation, route }) {
       </View>
       <BarreOutils>
         <Bouton
-          texte="Supprimer"
+          texte={i18n.t("delete")}
           onPress_cb={() => {
             console.log("Supprimer");
           }}
         />
         <Bouton
-          texte="Modifier"
+          texte={i18n.t("modify")}
           onPress_cb={() => {
             console.log("Modifier");
           }}
@@ -86,10 +88,12 @@ export default function CommandeInfoScreen({ navigation, route }) {
 }
 
 function Facture({ soustotal }) {
+  const i18n = obtenirI18n();
+
   return (
     <View>
       <Text style={styles.textFacture}>
-        Sous-Total: {soustotal.toFixed(2)}$
+        {i18n.t('subtotal')}: {soustotal.toFixed(2)}$
       </Text>
       <Text style={styles.textFacture}>
         TVQ: {(soustotal * 0.09975).toFixed(2)}$
@@ -98,7 +102,7 @@ function Facture({ soustotal }) {
         TPS: {(soustotal * 0.05).toFixed(2)}$
       </Text>
       <Text style={[styles.textFacture, { marginBottom: 40 }]}>
-        Total: {(soustotal * 1.14975).toFixed(2)}$
+        {i18n.t('total')}: {(soustotal * 1.14975).toFixed(2)}$
       </Text>
     </View>
   );

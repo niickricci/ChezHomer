@@ -15,12 +15,14 @@ import {
 } from "../panier";
 import stylesCommuns from "../styles";
 import Toast from "react-native-toast-message";
+import {obtenirI18n} from "../Locales/i18n";
 
 export default function PanierScreen({ navigation }) {
   const [itemSélectionné, setItemSélectionné] = useState(null);
   const [statutCommande, setStatutCommande] = useState(null);
   const [panierJSON, setPanier] = useState([]);
   const [facture, setFacture] = useState(0);
+  const i18n = obtenirI18n();
 
   useEffect(() => {
     setPanier(obtenirPanier());
@@ -51,8 +53,8 @@ export default function PanierScreen({ navigation }) {
       setPanier(obtenirPanier());
       Toast.show({
         type: "success",
-        text1: "Item supprimé ❌",
-        text2: itemSélectionné.nomItem + " a été retiré du panier avec succès",
+        text1: i18n.t('itemRemovedToats_succ'),
+        text2: itemSélectionné.nomItem + i18n.t('itemHasBeenRemoved'),
       });
     } else {
       console.log("Aucun item sélectionné");
@@ -75,16 +77,16 @@ export default function PanierScreen({ navigation }) {
           setPanier(obtenirPanier());
           Toast.show({
             type: "success",
-            text1: "Commande réussie ✅",
-            text2: "Votre commande a été placée avec succès",
+            text1: i18n.t('order_success'),
+            text2: i18n.t('order_placed'),
           });
           setStatutCommande("Commande réussie!");
         })
         .catch((err) => {
           Toast.show({
             type: "error",
-            text1: "Commande échouée ❌",
-            text2: "Erreur lors de la commande...",
+            text1: i18n.t('order_error'),
+            text2: i18n.t('order_fail'),
           });
           setStatutCommande("Erreur lors de la commande...");
         });
@@ -95,7 +97,7 @@ export default function PanierScreen({ navigation }) {
     <View style={stylesCommuns.app}>
       <View style={styles.sectionHaut}>
         {panierJSON.length === 0 ? (
-          <Text style={styles.textFacture}>Votre panier est vide...</Text>
+          <Text style={styles.textFacture}>{i18n.t('empty_cart')}</Text>
         ) : (
           <ScrollView>
             <Tuilerie>
@@ -128,13 +130,13 @@ export default function PanierScreen({ navigation }) {
       </View>
       <BarreOutils>
         <Bouton
-          texte="Supprimer"
+          texte={i18n.t('remove')}
           onPress_cb={() => {
             supprimerItem();
           }}
         />
         <Bouton
-          texte="Commander"
+          texte={i18n.t('checkout')}
           onPress_cb={() => {
             commanderItems();
           }}
@@ -145,10 +147,11 @@ export default function PanierScreen({ navigation }) {
 }
 
 function Facture({ soustotal }) {
+  const i18n = obtenirI18n();
   return (
     <View>
       <Text style={styles.textFacture}>
-        Sous-Total: {soustotal.toFixed(2)}$
+        {i18n.t('subtotal')}: {soustotal.toFixed(2)}$
       </Text>
       <Text style={styles.textFacture}>
         TVQ: {(soustotal * 0.09975).toFixed(2)}$
@@ -157,7 +160,7 @@ function Facture({ soustotal }) {
         TPS: {(soustotal * 0.05).toFixed(2)}$
       </Text>
       <Text style={[styles.textFacture, { marginBottom: 40 }]}>
-        Total: {(soustotal * 1.14975).toFixed(2)}$
+        {i18n.t('total')}: {(soustotal * 1.14975).toFixed(2)}$
       </Text>
     </View>
   );

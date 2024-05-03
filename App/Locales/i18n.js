@@ -12,6 +12,8 @@ const tabTraduction = {
   "en-US": en,
    "en-CA": en,
   "fr-CA": fr,
+  "fr": fr,
+  "fr-FR": fr,
   };
 
 const i18n = new I18n(tabTraduction);
