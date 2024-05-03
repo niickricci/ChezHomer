@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import Toast from "react-native-toast-message";
+import {obtenirI18n} from "../Locales/i18n";
 import {
   Text,
   View,
@@ -17,6 +18,7 @@ import { AntDesign } from "@expo/vector-icons";
 import stylesCommuns from "../styles";
 
 export function AuthenScreen({ navigation }) {
+  const i18n = obtenirI18n();
   function créerCompte() {
     console.log("TBD");
   }
@@ -36,8 +38,8 @@ export function AuthenScreen({ navigation }) {
         <Pressable onPress={seConnecter}>
           <Text style={styles.se_connecter}>Se connecter</Text>
         </Pressable> */}
-        <Bouton texte={"Créer un compte"} onPress_cb={() => créerCompte()} />
-        <Bouton texte={"Se connecter"} onPress_cb={() => seConnecter()} />
+        <Bouton texte={i18n.t('register')} onPress_cb={() => créerCompte()} />
+        <Bouton texte={i18n.t('login')} onPress_cb={() => seConnecter()} />
       </View>
     </View>
   );
@@ -47,6 +49,7 @@ export function SeConnecterScreen({ navigation }) {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [estValide, setEstValide] = useState(true);
+  const i18n = obtenirI18n();
 
   function seConnecter() {
     obtenirAuthenJSON(username, password)
@@ -55,7 +58,7 @@ export function SeConnecterScreen({ navigation }) {
         Toast.show({
           type: "success",
           position: "top",
-          text1: "Connexion réussie ✅",
+          text1: i18n.t('loginToastSucc'),
           visibilityTime: 3000,
         });
         navigation.popToTop();
@@ -66,7 +69,7 @@ export function SeConnecterScreen({ navigation }) {
         Toast.show({
           type: "error",
           position: "top",
-          text1: "Connexion échouée... ❌",
+          text1: i18n.t('loginToastErr'),
           visibilityTime: 3000,
         });
         setEstValide(false);
@@ -89,7 +92,7 @@ export function SeConnecterScreen({ navigation }) {
       headerRight: () => {
         return (
           <Pressable onPress={() => navigation.navigate("Aide")}>
-            <Text>Aide</Text>
+            <Text>{i18n.t('help')}</Text>
           </Pressable>
         );
       },
@@ -111,25 +114,25 @@ export function SeConnecterScreen({ navigation }) {
 
       <View style={styles.section_bas}>
         <Text style={{ fontSize: 20, marginBottom: 8, fontWeight: "semibold" }}>
-          Connexion:
+          {i18n.t('login_title')}:
         </Text>
         <TextInput
           style={[styles.saisie, estValide ? {} : { borderColor: "red" }]}
-          placeholder="Nom d'utilisateur"
+          placeholder= {i18n.t('username')}
           autoCorrect={false}
           onChangeText={setUsername}
         />
         <TextInput
           style={[styles.saisie, estValide ? {} : { borderColor: "red" }]}
-          placeholder="Mot de passe"
+          placeholder= {i18n.t('password')}
           autoCorrect={false}
           onChangeText={setPassword} // Pour mettre à jour le mot de passe
           secureTextEntry={true} // Pour cacher le mot de passe
         />
-        <Bouton texte={"Se connecter"} onPress_cb={seConnecter} />
+        <Bouton texte={i18n.t('login')} onPress_cb={seConnecter} />
         {!estValide && (
           <Text style={{ color: "red" }}>
-            Nom d'utilisateur ou mot de passe invalide
+            {i18n.t('invalid_credentials')}
           </Text>
         )}
       </View>
@@ -138,11 +141,13 @@ export function SeConnecterScreen({ navigation }) {
 }
 
 export function AideScreen({ navigation }) {
+  const i18n = obtenirI18n();
+
   return (
     <View style={stylesCommuns.app}>
       <View style={styles.section_haut}>
         <Text style={styles.titre}>
-          Problèmes communs reliés à l'authentification
+          {i18n.t('help_content')}
         </Text>
       </View>
     </View>

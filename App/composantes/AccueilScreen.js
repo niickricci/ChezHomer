@@ -7,13 +7,16 @@ import { AntDesign } from "@expo/vector-icons";
 import { nbItemPanier, initPanier } from "../panier";
 import stylesCommuns from "../styles";
 import Tuilerie from "./Tuilerie";
+import {obtenirI18n} from "../Locales/i18n";
 
 export default function AccueilScreen({ navigation, route }) {
   const { nom, prenom } = route.params;
+  const i18n = obtenirI18n();
+
   const logoutAlert = () => {
-    Alert.alert("Déconnexion", "Voulez-vous vraiment vous déconnecter?", [
-      { text: "Annuler", onPress: () => console.log("Annuler") },
-      { text: "Oui", onPress: () => navigation.replace("Authen") },
+    Alert.alert(i18n.t('logout_title'), i18n.t('logout_message'), [
+      { text: i18n.t('logout_cancel'), onPress: () => console.log("Annuler") },
+      { text: i18n.t('logout_ok'), onPress: () => navigation.replace("Authen") },
     ]);
   };
 
@@ -54,23 +57,23 @@ export default function AccueilScreen({ navigation, route }) {
     <View style={stylesCommuns.app}>
       <View style={styles.sectionHaut}>
         <Text style={styles.bienvenue}>
-          {"Bonjour " + prenom + " " + nom + "!"}
+          {i18n.t('hello') + " " + prenom + " " + nom + "!" }
         </Text>
       </View>
       <View style={styles.sectionBas}></View>
       <Tuilerie>
         <Tuile
-          texte={"Menu"}
+          texte={i18n.t('menu')}
           onPress_cb={() => navigation.navigate("Ardoise")}
           iconNom={"book"}
         />
         <Tuile
-          texte={"Commandes"}
+          texte={i18n.t('orders')}
           onPress_cb={() => navigation.navigate("Commandes")}
           iconNom={"profile"}
         />
         <Tuile
-          texte={"Nous joindre"}
+          texte={i18n.t('contact_us')}
           onPress_cb={() => navigation.navigate("RestoInfo")}
           iconNom={"phone"}
         />

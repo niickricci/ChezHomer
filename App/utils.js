@@ -1,6 +1,6 @@
 let Username = "admin";
 let Password = "password";
-const serveur_ip = "10.0.0.42"; // Adresse IP du serveur (local)
+const serveur_ip = "172.22.157.136"; //"172.22.157.136"; // Adresse IP du serveur (local)
 let Nom = null;
 let Prénom = null;
 // =====================
