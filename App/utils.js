@@ -1,6 +1,6 @@
 let Username = "admin";
 let Password = "password";
-const serveur_ip = "172.22.157.136"; //"172.22.157.136"; // Adresse IP du serveur (local)
+const serveur_ip = "172.22.149.99"; // Adresse IP du serveur (local)
 let Nom = null;
 let Prénom = null;
 // =====================
@@ -53,8 +53,8 @@ function supprimerRessourceJSON(ressource) {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export function obtenirAuthenJSON(username, password) {
-  //Username = username;
-  //Password = password;
+  Username = username;
+  Password = password;
   return obtenirRessourceJSON("authentification").then((res) => {
     console.log("login succès: %s", res);
     Nom = res.nom;
