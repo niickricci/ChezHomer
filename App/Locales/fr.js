@@ -64,4 +64,7 @@ export default {
   contactUsTitle: "Nous joindre",
   helpTitle: "Aide",
   orderDetailsTitle: "Détails de la commande",
+
+  //RestoInfoScreen
+  your_position: "Vous êtes ici!",
 };

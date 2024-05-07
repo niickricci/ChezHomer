@@ -99,7 +99,7 @@ export default function RestoInfoScreen({ navigation, route }) {
             pinColor="#67D37C"
           >
             <Callout>
-              <Text style={styles.marqueur}>Votre position</Text>
+              <Text style={styles.marqueur}>{i18n.t('your_position')}</Text>
             </Callout>
           </Marker>
           <Circle

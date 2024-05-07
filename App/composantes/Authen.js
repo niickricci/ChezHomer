@@ -143,6 +143,21 @@ export function SeConnecterScreen({ navigation }) {
 export function AideScreen({ navigation }) {
   const i18n = obtenirI18n();
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <AntDesign
+            name="left"
+            size={25}
+            color="#111F30"
+            onPress={() => navigation.goBack()}
+          ></AntDesign>
+        );
+      },
+    });
+  });
+
   return (
     <View style={stylesCommuns.app}>
       <View style={styles.section_haut}>

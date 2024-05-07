@@ -34,7 +34,7 @@ export default function App() {
             title: "Chez Homer",
           }}
         />
-        <Screen name="Aide" component={AideScreen} />
+        <Screen name="Aide" component={AideScreen} options={{ title: i18n.t("helpTitle") }}/>
         <Screen
           name="Authen"
           component={AuthenScreen}
